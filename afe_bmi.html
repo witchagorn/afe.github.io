@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Roboto&display=swap');
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Kanit', sans-serif;
+        }
+        p {
+            font-family: 'Kanit', sans-serif;
+            font-size: large;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            width: 190px;
+            height: 254px;
+            border-radius: 30px;
+            background: rgb(226, 226, 226);
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+        }
+
+        .bmi {
+            background: rgb(59, 224, 197);
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: bisque;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="bmiForm">
+        <label for="weight">Weight (in kg): </label>
+        <input type="number" id="weight" name="weight">
+        <br>
+        <label for="height">Height (in cm): </label>
+        <input type="number" id="height" name="height">
+        <br>
+        <input type="submit" value="Calculate BMI">
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('bmiForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get weight in kg
+            var weight = parseFloat(document.getElementById('weight').value);
+
+            // Get height in cm
+            var height = parseFloat(document.getElementById('height').value);
+
+            // Convert height to meters
+            var heightInMeters = height / 100;
+
+            // Calculate BMI
+            var bmi = weight / (heightInMeters * heightInMeters);
+
+            // Display BMI
+            document.getElementById('result').innerHTML = '<p class="bmi">Your BMI is : ' + bmi.toFixed(1) + '</p><br>'; //ทศนิยม1ตำแหน่ง
+
+            // Interpret BMI
+            if (bmi < 18.5) {
+                document.getElementById('result').innerHTML += '<p class="text">ผอม</p>';
+            } else if (bmi >= 18.5 && bmi <= 22.90) {
+                document.getElementById('result').innerHTML += '<p class="text">ปกติ</p>';
+            } else if (bmi >= 23 && bmi <= 24.90) {
+                document.getElementById('result').innerHTML += '<p class="text">ท้วม</p>';
+            } else if (bmi >= 25 && bmi <= 29.90) {
+                document.getElementById('result').innerHTML += '<p class="text">อ้วน</p>';
+            } else {
+                document.getElementById('result').innerHTML += '<p class="text">อ้วนมาก</p>';
+            }
+        });
+    </script>
+</body>
+
+</html>
